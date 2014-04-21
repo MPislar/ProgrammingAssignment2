@@ -2,7 +2,6 @@
 ## setMatrix, setInverse, and getInverse. With those functions you can get or set the matrix and get or set
 ## the inverse of the matrix, respectively.  
 
-## Write a short comment describing this function
 
 makeCacheMatrix <- function(x = matrix()) {
    inverse <- NULL
@@ -18,8 +17,17 @@ makeCacheMatrix <- function(x = matrix()) {
 }
 
 
-## Write a short comment describing this function
+## Function'cacheSolve' either obtains the invers of a previous special matrix, if it is already calculated
+## and cached in special matrix, or the function calculates the inverse in situ and stores in special matrix.
 
 cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+      inverse <- x$getInverse()
+      if(!is.null(inverse)) {
+            message("getting cached inverse")
+            return(inverse)
+      }
+      data <- x$getMatrix()
+      inverse <- solve(data, ...)
+      x$setInverse(inverse)
+      inverse
 }
